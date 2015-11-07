@@ -74,10 +74,10 @@ func Distance(origin Coordinate, destination Coordinate) float64 {
 	return c * R
 }
 
-// PointOnGreatCircle returns a Coordinate that is distance (in kilometers) from the origin.
+// Waypoint returns a Coordinate that is distance (in kilometers) on the great circle between the origin and the destination.
 // if the distance provided is larger than the actual distance, it returns the coordinates of the destination.
 // If the distance is smaller than zero, it returns the coordinates of the origin.
-func PointOnGreatCircle(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
+func Waypoint(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
 
 	totalDistance := Distance(origin, destination)
 
