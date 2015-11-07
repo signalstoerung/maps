@@ -76,6 +76,7 @@ func Distance(origin Coordinate, destination Coordinate) float64 {
 
 // PointOnGreatCircle returns a Coordinate that is distance (in kilometers) from the origin.
 // if the distance provided is larger than the actual distance, it returns the coordinates of the destination.
+// If the distance is smaller than zero, it returns the coordinates of the origin.
 func PointOnGreatCircle(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
 
 	totalDistance := Distance(origin, destination)
@@ -85,6 +86,12 @@ func PointOnGreatCircle(origin Coordinate, destination Coordinate, distance floa
 		waypoint.Latitude = destination.Latitude
 		waypoint.Longitude = destination.Longitude
 		return
+	}
+
+	// if distance is smaller than 0, return the origin
+	if distance < 0 {
+		waypoint.Latitude=origin.Latitude
+		waypoint.Longitude.origin.Longitude
 	}
 
 	// from http://williams.best.vwh.net/avform.htm#Intermediate
