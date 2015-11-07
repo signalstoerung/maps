@@ -14,7 +14,7 @@ type Coordinate struct {
 
 // R is the radius of the earth, in kilometers, for distance calculations
 const (
-	R = 6367
+	R = 6371
 )
 
 // String implements the Stringer interface for Coordinate. It generates a string in the format
