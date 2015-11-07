@@ -25,8 +25,10 @@ const (
 	R = 6371
 )
 
-// String implements the Stringer interface for Coordinate. It generates a string in the format
-// 00.00 North, 00.00 East
+/*
+String implements the Stringer interface for Coordinate. It generates a string in the format
+	0.00 North, 0.00 East
+*/
 func (c Coordinate) String() string {
 	var northsouth string
 	var eastwest string
