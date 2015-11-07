@@ -91,7 +91,7 @@ func Waypoint(origin Coordinate, destination Coordinate, distance float64) (wayp
 	// if distance is smaller than 0, return the origin
 	if distance < 0 {
 		waypoint.Latitude=origin.Latitude
-		waypoint.Longitude.origin.Longitude
+		waypoint.Longitude=origin.Longitude
 	}
 
 	// from http://williams.best.vwh.net/avform.htm#Intermediate
