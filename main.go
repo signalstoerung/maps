@@ -59,7 +59,7 @@ func degrees(radians float64) float64 {
 	return radians * 180 / math.Pi
 }
 
-// Distance calculates the distance between two _Coordinate_s on a great circle.
+// Distance calculates the distance between two Coordinate points on a great circle.
 // It returns a float64 understood to be in kilometers.
 func Distance(origin Coordinate, destination Coordinate) float64 {
 	originLat := radians(origin.Latitude)
@@ -74,7 +74,7 @@ func Distance(origin Coordinate, destination Coordinate) float64 {
 	return c * R
 }
 
-// PointOnGreatCircle returns the coordinates of a point that is _distance_ (in kilometers) from the origin.
+// PointOnGreatCircle returns a Coordinate that is distance (in kilometers) from the origin.
 // if the distance provided is larger than the actual distance, it returns the coordinates of the destination.
 func PointOnGreatCircle(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
 
