@@ -1,14 +1,14 @@
 package maps
 
 import (
-	"math"
 	"fmt"
+	"math"
 )
 
-// Coordinate is a point on the earth, specified in Latitude and Longitude, 
+// Coordinate is a point on the earth, specified in Latitude and Longitude,
 // where positive values denote North and East, and negative values South and West.
 type Coordinate struct {
-	Latitude float64
+	Latitude  float64
 	Longitude float64
 }
 
@@ -26,19 +26,19 @@ func (c Coordinate) String() string {
 	var long float64
 	if c.Latitude < 0 {
 		northsouth = "South"
-		lat = c.Latitude*-1
+		lat = c.Latitude * -1
 	} else {
 		northsouth = "North"
 		lat = c.Latitude
 	}
 	if c.Longitude < 0 {
 		eastwest = "West"
-		long = c.Longitude*-1
+		long = c.Longitude * -1
 	} else {
 		eastwest = "East"
 		long = c.Longitude
 	}
-	return fmt.Sprintf("%.2f %s, %.2f %s",lat,northsouth,long,eastwest)
+	return fmt.Sprintf("%.2f %s, %.2f %s", lat, northsouth, long, eastwest)
 }
 
 // radians is a helper function to convert from degrees to radians
@@ -53,7 +53,7 @@ func degrees(radians float64) float64 {
 
 // Distance calculates the distance between two _Coordinate_s on a great circle.
 // It returns a float64 understood to be in kilometers.
-func Distance (origin Coordinate, destination Coordinate) float64 {
+func Distance(origin Coordinate, destination Coordinate) float64 {
 	originLat := radians(origin.Latitude)
 	originLon := radians(origin.Longitude)
 	destLat := radians(destination.Latitude)
@@ -68,15 +68,15 @@ func Distance (origin Coordinate, destination Coordinate) float64 {
 
 // PointOnGreatCircle returns the coordinates of a point that is _distance_ (in kilometers) from the origin.
 // if the distance provided is larger than the actual distance, it returns the coordinates of the destination.
-func PointOnGreatCircle (origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
+func PointOnGreatCircle(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
 
 	totalDistance := Distance(origin, destination)
 
 	// if the distance provided by the user is larger than the actual distance, return the destination coordinates
 	if distance > totalDistance {
-		waypoint.Latitude=destination.Latitude
-		waypoint.Longitude=destination.Longitude
- 		return
+		waypoint.Latitude = destination.Latitude
+		waypoint.Longitude = destination.Longitude
+		return
 	}
 
 	// from http://williams.best.vwh.net/avform.htm#Intermediate
