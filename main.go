@@ -1,5 +1,5 @@
 /*
-Maps provides methods to work with geographical coordinates. 
+Maps provides methods to work with geographical coordinates.
 
 In v1, it can calculate the
 Great Circle distance between two coordinates as well as calculate waypoints in between.
@@ -13,12 +13,19 @@ import (
 	"math"
 )
 
-// Coordinate is a point on the earth, specified in Latitude and Longitude,
+// Coordinate is a point on the earth, specified in degrees of Latitude and Longitude,
 // where positive values denote North and East, and negative values South and West.
 type Coordinate struct {
 	Latitude  float64
 	Longitude float64
 }
+
+// PlotPoint is the result of projecting a Coordinate to the plane. (0,0) is the lower left corner.
+type PlotPoint struct {
+	X float64
+	Y float64
+}
+
 
 // R is the radius of the earth, in kilometers, for distance calculations
 const (
@@ -51,6 +58,21 @@ func (c Coordinate) String() string {
 	return fmt.Sprintf("%.2f %s, %.2f %s", lat, northsouth, long, eastwest)
 }
 
+func (c Coordinate) isValid() bool {
+	switch {
+	case c.Latitude > 90:
+		return false
+	case c.Latitude < -90:
+		return false
+	case c.Longitude > 180:
+		return false
+	case c.Longitude < -180:
+		return false
+	default:
+		return true
+	}
+}
+
 // radians is a helper function to convert from degrees to radians
 func radians(degrees float64) float64 {
 	return degrees * math.Pi / 180
@@ -81,10 +103,10 @@ func Distance(origin Coordinate, destination Coordinate) float64 {
 // If the distance is smaller than zero, it returns the coordinates of the origin.
 func Waypoint(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
 
-// if distance is smaller than 0, return the origin
+	// if distance is smaller than 0, return the origin
 	if distance < 0 {
-		waypoint.Latitude=origin.Latitude
-		waypoint.Longitude=origin.Longitude
+		waypoint.Latitude = origin.Latitude
+		waypoint.Longitude = origin.Longitude
 		return
 	}
 
@@ -97,7 +119,6 @@ func Waypoint(origin Coordinate, destination Coordinate, distance float64) (wayp
 		return
 	}
 
-	
 	// from http://williams.best.vwh.net/avform.htm#Intermediate
 	// this works, but I'll happily admit I don't understand the math
 	fraction := distance / totalDistance
