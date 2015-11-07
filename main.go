@@ -1,3 +1,11 @@
+/*
+Maps provides methods to work with geographical coordinates. 
+
+In v1, it can calculate the
+Great Circle distance between two coordinates as well as calculate waypoints in between.
+In future versions, the intention is to plot points using different map projections
+(notably Mercator and Gnonomic).
+*/
 package maps
 
 import (
