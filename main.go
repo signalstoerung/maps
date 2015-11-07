@@ -79,6 +79,13 @@ func Distance(origin Coordinate, destination Coordinate) float64 {
 // If the distance is smaller than zero, it returns the coordinates of the origin.
 func Waypoint(origin Coordinate, destination Coordinate, distance float64) (waypoint Coordinate) {
 
+// if distance is smaller than 0, return the origin
+	if distance < 0 {
+		waypoint.Latitude=origin.Latitude
+		waypoint.Longitude=origin.Longitude
+		return
+	}
+
 	totalDistance := Distance(origin, destination)
 
 	// if the distance provided by the user is larger than the actual distance, return the destination coordinates
@@ -88,12 +95,7 @@ func Waypoint(origin Coordinate, destination Coordinate, distance float64) (wayp
 		return
 	}
 
-	// if distance is smaller than 0, return the origin
-	if distance < 0 {
-		waypoint.Latitude=origin.Latitude
-		waypoint.Longitude=origin.Longitude
-	}
-
+	
 	// from http://williams.best.vwh.net/avform.htm#Intermediate
 	// this works, but I'll happily admit I don't understand the math
 	fraction := distance / totalDistance
