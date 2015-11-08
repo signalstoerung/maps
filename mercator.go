@@ -12,7 +12,7 @@ into a PlotPoint, given the distortion of the Mercator projection close to the p
 The ProjectionMeridian of -Pi ensures that the Greenwich meridian is in the center of the projection.
 */
 const (
-	MaxLatitude = 70
+	MaxLatitude        = 70
 	ProjectionMeridian = -1 * math.Pi
 )
 

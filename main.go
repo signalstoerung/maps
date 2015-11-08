@@ -26,7 +26,6 @@ type PlotPoint struct {
 	Y float64
 }
 
-
 // R is the radius of the earth, in kilometers, for distance calculations
 const (
 	R = 6371
@@ -121,6 +120,7 @@ func Waypoint(origin Coordinate, destination Coordinate, distance float64) (wayp
 
 	// from http://williams.best.vwh.net/avform.htm#Intermediate
 	// this works, but I'll happily admit I don't understand the math
+	// BUG(.): Waypoints are not correctly calculated for for coordinates that are antipodes (or close); the reason is that ANY route between those two points is a great circle.
 	fraction := distance / totalDistance
 	originLatitude := radians(origin.Latitude)
 	originLongitude := radians(origin.Longitude * -1) // quirk of the formula
@@ -142,16 +142,16 @@ func Waypoint(origin Coordinate, destination Coordinate, distance float64) (wayp
 // with the specified number of waypoints. For waypoints < 1, it just returns the origin and destination.
 func Route(origin Coordinate, destination Coordinate, numberOfWaypoints uint) []Coordinate {
 	if numberOfWaypoints < 1 {
-		return []Coordinate{origin,destination}
+		return []Coordinate{origin, destination}
 	}
-	distanceBetweenWaypoints := Distance(origin,destination)/float64(numberOfWaypoints+1)
-	waypoints := make([]Coordinate,numberOfWaypoints+2)
+	distanceBetweenWaypoints := Distance(origin, destination) / float64(numberOfWaypoints+1)
+	waypoints := make([]Coordinate, numberOfWaypoints+2)
 	waypoints[0] = origin
 	var i uint = 1
 	for i <= numberOfWaypoints {
-		waypoints[i]=Waypoint( origin, destination, distanceBetweenWaypoints*float64(i) )
+		waypoints[i] = Waypoint(origin, destination, distanceBetweenWaypoints*float64(i))
 		i++
 	}
-	waypoints[i]=destination
+	waypoints[i] = destination
 	return waypoints
 }

@@ -22,12 +22,12 @@ func NewAsciiPlot(width uint, height uint) *MercatorAsciiPlot {
 	}
 	// draw zero meridian
 	for i := 0; i < int(height); i++ {
-		pb[uint(i)*width + width/2] = '|'
+		pb[uint(i)*width+width/2] = '|'
 	}
-	for i:= 0; i < int(width); i++ {
+	for i := 0; i < int(width); i++ {
 		location := height/2*width + uint(i)
 		if i == int(width)/2 {
-			pb[location]='+'
+			pb[location] = '+'
 		} else {
 			pb[location] = '-'
 		}
@@ -59,12 +59,12 @@ func (a *MercatorAsciiPlot) AddPoint(x uint, y uint, symbol byte) error {
 // DEBUG ONLY. Print is a hacked-together function to print the output; this will be replaced by a function
 // implementing the io.Reader interface.
 func (a MercatorAsciiPlot) Print() {
-	for i := a.height-1; i > 0; i-- {
+	for i := a.height - 1; i > 0; i-- {
 		start := uint(i) * a.width
-		end := (uint(i)+1)*a.width
+		end := (uint(i) + 1) * a.width
 
 		line := string(a.plotbuffer[start:end])
-//		fmt.Printf("%x\n",line)
+		//		fmt.Printf("%x\n",line)
 		fmt.Println(line)
 	}
 }
