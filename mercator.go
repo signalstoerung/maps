@@ -44,7 +44,7 @@ func CoordinateToMercator(c Coordinate, scale float64) (p PlotPoint, err error) 
 
 	lat := radians(c.Latitude)
 	lon := radians(c.Longitude)
-	p.X = (lon - projectionMeridian) * scale
+	p.X = (lon - ProjectionMeridian) * scale
 	p.Y = (math.Log(math.Tan(lat) + (1 / math.Cos(lat)))) * scale
 	p.Y += scale * 2 // ensure all values are positive
 	return

@@ -137,3 +137,21 @@ func Waypoint(origin Coordinate, destination Coordinate, distance float64) (wayp
 	waypoint.Longitude = degrees(-1 * math.Atan2(y, x))
 	return
 }
+
+// Route returns a slice with coordinates for the route from origin and destination
+// with the specified number of waypoints. For waypoints < 1, it just returns the origin and destination.
+func Route(origin Coordinate, destination Coordinate, numberOfWaypoints uint) []Coordinate {
+	if numberOfWaypoints < 1 {
+		return []Coordinate{origin,destination}
+	}
+	distanceBetweenWaypoints := Distance(origin,destination)/float64(numberOfWaypoints+1)
+	waypoints := make([]Coordinate,numberOfWaypoints+2)
+	waypoints[0] = origin
+	var i uint = 1
+	for i <= numberOfWaypoints {
+		waypoints[i]=Waypoint( origin, destination, distanceBetweenWaypoints*float64(i) )
+		i++
+	}
+	waypoints[i]=destination
+	return waypoints
+}
